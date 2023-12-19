@@ -5,67 +5,31 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel = "canonical" href="https://getbootstrap.com/docs/5.0/examples/cover">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>Statistics</title>
 </head>
 <body>
-<div style="width: 500px; height: 500px;" >
-    <canvas id="myChart"></canvas>
-</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div style="width: 500px; height: 500px;" >
+                <canvas id="botCount"></canvas>
+            </div>
+        </div>
 
+        <div class="col">
+            <div class="col" style="width: 500px; height: 500px;">
+                <canvas id="regressionData"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-    const ctx = document.getElementById('myChart');
-
-    let botCount = 0;
-    let humanCount = 0;
-    async function getData() {
-        const response = await fetch('https://fingerprint-server-czzzoqqzqa-ey.a.run.app/api/fingerprints');
-        const data = response.json();
-        data.then(data => {
-            console.log(data)
-            botCount = data.filter(el => el.bot === "bad").length
-            humanCount = data.length - botCount
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Bot Count', 'Human Count'],
-                    datasets: [{
-                        label: '# of Visitors',
-                        data: [botCount, humanCount],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 205, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(201, 203, 207, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(255, 159, 64)',
-                            'rgb(255, 205, 86)',
-                            'rgb(75, 192, 192)',
-                            'rgb(54, 162, 235)',
-                            'rgb(153, 102, 255)',
-                            'rgb(201, 203, 207)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            })
-        })
-    }
-
-    getData()
-</script>
+<script src="charts/botCount.js"></script>
+<script src="charts/regressionData.js"></script>
 </body>
 </html>
