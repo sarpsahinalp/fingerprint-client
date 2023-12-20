@@ -63,6 +63,8 @@ botPromise
         jsonData.innerWidth = bot.components.windowSize.value.innerWidth;
         jsonData.outerHeight = bot.components.windowSize.value.outerHeight;
         jsonData.outerWidth = bot.components.windowSize.value.outerWidth;
+        jsonData.bot = bot.detect()
+        console.log(jsonData.bot.bot)
 
 
         const apiEndpoint = "https://fingerprint-server-czzzoqqzqa-ey.a.run.app/api/bot-data";
