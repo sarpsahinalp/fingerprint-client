@@ -33,7 +33,6 @@ let jsonData = {
 }
 botPromise
     .then((bot) => {
-        bot.detect()
         console.log(bot)
 
         jsonData.android = bot.components.android.value
@@ -62,7 +61,7 @@ botPromise
         jsonData.innerWidth = bot.components.windowSize.value.innerWidth;
         jsonData.outerHeight = bot.components.windowSize.value.outerHeight;
         jsonData.outerWidth = bot.components.windowSize.value.outerWidth;
-        jsonData.bot = jsonData.bot.bot
+        jsonData.bot = bot.detect().bot
 
         const apiEndpoint = "https://fingerprint-server-czzzoqqzqa-ey.a.run.app/api/bot-data";
 
