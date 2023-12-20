@@ -1,7 +1,6 @@
 const botPromise = import('https://openfpcdn.io/botd/v1').then((Botd) =>
     Botd.load()
 );
-// Get the bot detection result when you need it.
 
 let jsonData = {
     bot: false,
