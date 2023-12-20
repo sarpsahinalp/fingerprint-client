@@ -49,9 +49,9 @@ botPromise
         jsonData.notificationPermissions = bot.components.notificationPermissions.value;
         jsonData.pluginsArray = bot.components.pluginsArray.value;
         jsonData.pluginsLength = bot.components.pluginsLength.value;
-        jsonData.process = bot.components.process.value;
+        jsonData.process = bot.components.process.state === -1 ? -1 : bot.components.process.value;
         jsonData.productSub = bot.components.productSub.value;
-        jsonData.rtt = bot.components.rtt.value;
+        jsonData.rtt = bot.components.rtt.state === -1 ? -1 : bot.components.rtt.value;
         jsonData.userAgent = bot.components.userAgent.value;
         jsonData.webDriver = bot.components.webDriver.value;
         jsonData.webGlVendor = bot.components.webGL.value.vendor;
@@ -63,6 +63,7 @@ botPromise
         jsonData.outerWidth = bot.components.windowSize.value.outerWidth;
         jsonData.bot = bot.detect().bot
 
+        console.log(jsonData)
         const apiEndpoint = "https://fingerprint-server-czzzoqqzqa-ey.a.run.app/api/bot-data";
 
         let headers;
