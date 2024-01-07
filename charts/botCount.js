@@ -3,12 +3,11 @@ const ctx = document.getElementById('botCount');
 let botCount = 0;
 let humanCount = 0;
 async function getData() {
-    const url = 'https://fingerprint-server-czzzoqqzqa-ey.a.run.app/api/fingerprints'
+    const url = 'https://fingerprint-server-czzzoqqzqa-ey.a.run.app/api/bot-data'
     const response = await fetch(url);
     const data = response.json();
     data.then(data => {
-        console.log(data)
-        botCount = data.filter(el => el.bot === "bad").length
+        botCount = data.filter(el => el.bot === true).length
         humanCount = data.length - botCount
         new Chart(ctx, {
             type: 'bar',
@@ -49,4 +48,4 @@ async function getData() {
     })
 }
 
-getData().then(r => console.log(r))
+getData()
