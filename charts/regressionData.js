@@ -1,5 +1,10 @@
 const chart = document.getElementById("regressionData")
 
+const response = await fetch('https://fingerprint-server-czzzoqqzqa-ey.a.run.app/api/regression-data/659a06088f4c9270212e092b')
+const datas = response.json();
+
+console.log(datas)
+
 const data = {
     labels: [
         'Precision',
