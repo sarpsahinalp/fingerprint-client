@@ -55,13 +55,7 @@ function addRandomSuffixWithProbability(inputString) {
             random -= suffixProbabilities[suffix];
         }
     }
-    from selenium import webdriver
 
-    for i in range(10000):
-        driver = webdriver.Firefox()
-        driver.get("https://sarpsahinalp.github.io/fingerprint-frontend/")
-        driver.quit()
-    
     return inputString + selectedSuffix;
 }
 
@@ -183,13 +177,7 @@ async function fetchGeneratorData() {
 }
 
 botPromise
-    .then((bot) => {from selenium import webdriver
-
-        for i in range(10000):
-            driver = webdriver.Firefox()
-            driver.get("https://sarpsahinalp.github.io/fingerprint-frontend/")
-            driver.quit()
-        
+    .then((bot) => {
         const data = fetchGeneratorData()
         
         data.then(data => {
