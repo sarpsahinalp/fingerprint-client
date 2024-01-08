@@ -38,9 +38,9 @@ function getRandomBoolean() {
 
 function addRandomSuffixWithProbability(inputString) {
     const suffixProbabilities = {
-        "slimerjs": 0.01,
-        "headless": 0.01,
-        "electron": 0.01
+        "slimerjs": 0.001,
+        "headless": 0.001,
+        "electron": 0.001
     };
 
     let random;
@@ -88,7 +88,7 @@ function getRandomArray() {
     if (Math.random() < probability) {
         return [];
     } else {
-        return ["en"];
+        return [["lang"]];
     }
 }
 
@@ -97,7 +97,7 @@ function getRandomBooleanTrue() {
 }
 
 function getRandomBooleanFalse() {
-    return Math.random() > 0.99;
+    return Math.random() > 0.999;
 }
 
 function getRandomWeightedNumber() {
@@ -112,7 +112,7 @@ function getRandomWeightedNumber() {
 }
 
 function getRandomVendor() {
-    const probabilityBrianPaul = 0.01;
+    const probabilityBrianPaul = 0.001;
     const entities = [
         "Google Inc.",
         "WebKit",
@@ -129,7 +129,7 @@ function getRandomVendor() {
 }
 
 function getRandomRenderer() {
-    const probabilityMesaOffScreen = 0.01;
+    const probabilityMesaOffScreen = 0.001;
     const graphicsInfoOptions = [
         "Intel(R) HD Graphics.",
         "WebKit WebGL",
@@ -183,8 +183,7 @@ botPromise
         data.then(data => {
 
             bot.components.android.value = getRandomBoolean();
-            bot.components.appVersion.value = getRandomElementFromArray(data.nodes[4].possibleValues);
-            console.log('TEST')
+            bot.components.appVersion.value = addRandomSuffixWithProbability(getRandomElementFromArray(data.nodes[4].possibleValues));
             bot.components.browserEngineKind.value = getRandomRenderingEngine();
             bot.components.browserKind.value = getRandomBrowser();
             bot.components.documentFocus.value = getRandomBoolean();
@@ -205,8 +204,6 @@ botPromise
             bot.components.windowSize.value.innerWidth = screenInfo.innerWidth;
             bot.components.windowSize.value.outerHeight = screenInfo.outerHeight;
             bot.components.windowSize.value.outerWidth = screenInfo.outerWidth;
-
-            console.log(bot)
 
             jsonData.android = bot.components.android.value
             jsonData.appVersion = bot.components.appVersion.value
@@ -249,18 +246,18 @@ botPromise
                 method: "POST",
                 headers: headers,
                 body: JSON.stringify(jsonData),
+            }).then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
             })
-        }).then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
+                .then((data) => {
+                    console.log("POST request successful!");
+                    console.log("Response:", data);
+                })
+                .catch((error) => {
+                    console.error("POST request failed:", error);
+                });
         })
-            .then((data) => {
-                console.log("POST request successful!");
-                console.log("Response:", data);
-            })
-            .catch((error) => {
-                console.error("POST request failed:", error);
-            });
     })
