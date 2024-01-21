@@ -2,6 +2,42 @@ const botPromise = import('https://openfpcdn.io/botd/v1').then((Botd) =>
     Botd.load()
 );
 
+
+function showPopup() {
+    document.getElementById("modelShowButton").click()
+    document.getElementById("botFeedback").style.visibility = "hidden";
+}
+
+function updateContent() {
+    document.getElementById("bot").innerText = jsonData.bot;
+    document.getElementById("android").innerText = jsonData.android;
+    document.getElementById("appVersion").innerText = jsonData.appVersion;
+    document.getElementById("browserEngineKind").innerText = jsonData.browserEngineKind;
+    document.getElementById("browserKind").innerText = jsonData.browserKind;
+    document.getElementById("distinctiveProps").innerText = jsonData.distinctiveProps.join(', ');
+    document.getElementById("documentElementKeys").innerText = jsonData.documentElementKeys.join(', ');
+    document.getElementById("documentFocus").innerText = jsonData.documentFocus;
+    document.getElementById("evalLength").innerText = jsonData.evalLength;
+    document.getElementById("functionBind").innerText = jsonData.functionBind;
+    document.getElementById("languages").innerText = jsonData.languages.join(', ');
+    document.getElementById("mimeTypesConsistent").innerText = jsonData.mimeTypesConsistent;
+    document.getElementById("notificationPermissions").innerText = jsonData.notificationPermissions;
+    document.getElementById("pluginsArray").innerText = jsonData.pluginsArray;
+    document.getElementById("pluginsLength").innerText = jsonData.pluginsLength;
+    document.getElementById("productSub").innerText = jsonData.productSub;
+    document.getElementById("process").innerText = jsonData.process;
+    document.getElementById("rtt").innerText = jsonData.rtt;
+    document.getElementById("userAgent").innerText = jsonData.userAgent;
+    document.getElementById("webDriver").innerText = jsonData.webDriver;
+    document.getElementById("webGlVendor").innerText = jsonData.webGlVendor;
+    document.getElementById("webGlRenderer").innerText = jsonData.webGlRenderer;
+    document.getElementById("windowExternal").innerText = jsonData.windowExternal;
+    document.getElementById("innerHeight").innerText = jsonData.innerHeight;
+    document.getElementById("innerWidth").innerText = jsonData.innerWidth;
+    document.getElementById("outerHeight").innerText = jsonData.outerHeight;
+    document.getElementById("outerWidth").innerText = jsonData.outerWidth;
+}
+
 let jsonData = {
     bot: false,
     android: false,
@@ -32,178 +68,18 @@ let jsonData = {
     outerWidth: 0
 }
 
-function getRandomBoolean() {
-    return Math.random() < 0.5; // Returns true with 50% probability
-}
-
-function addRandomSuffixWithProbability(inputString) {
-    const suffixProbabilities = {
-        "slimerjs": 0.001,
-        "headless": 0.001,
-        "electron": 0.001
-    };
-
-    let random;
-    random = Math.random();
-    let selectedSuffix = "";
-
-    for (const suffix in suffixProbabilities) {
-        if (random < suffixProbabilities[suffix]) {
-            selectedSuffix = suffix;
-            break;
-        } else {
-            random -= suffixProbabilities[suffix];
-        }
-    }
-
-    return inputString + selectedSuffix;
-}
-
-function getRandomElementFromArray(array) {
-    const randomIndex = Math.floor(Math.random() * array.length);
-    return array[randomIndex];
-}
-
-function getRandomBrowser() {
-    const browsers = ["unknown", "chrome", "firefox", "opera", "safari", "internet_explorer", "wechat", "edge"];
-    const randomIndex = Math.floor(Math.random() * browsers.length);
-    return browsers[randomIndex];
-}
-
-function getRandomRenderingEngine() {
-    const renderingEngines = ["unknown", "chromium", "gecko", "webkit"];
-    const randomIndex = Math.floor(Math.random() * renderingEngines.length);
-    return renderingEngines[randomIndex];
-}
-
-function getRandomEvalLength() {
-    const lengths = [33, 37, 39];
-    const randomIndex = Math.floor(Math.random() * lengths.length);
-    return lengths[randomIndex];
-}
-
-function getRandomArray() {
-    const probability = 0.01;
-
-    if (Math.random() < probability) {
-        return [];
-    } else {
-        return [["lang"]];
-    }
-}
-
-function getRandomBooleanTrue() {
-    return Math.random() < 0.999;
-}
-
-function getRandomBooleanFalse() {
-    return Math.random() > 0.999;
-}
-
-function getRandomWeightedNumber() {
-    const maxNumber = 30;
-    const exponent = 3; // Adjust the exponent to control the distribution shape
-
-    // Generate a random number with a weighted distribution
-    const weightedRandom = Math.pow(Math.random(), exponent);
-
-    // Scale and round to get a number between 0 and maxNumber
-    return Math.floor(weightedRandom * (maxNumber + 1));
-}
-
-function getRandomVendor() {
-    const probabilityBrianPaul = 0.001;
-    const entities = [
-        "Google Inc.",
-        "WebKit",
-        "Apple Computer, Inc.",
-        "Unknown"
-    ];
-
-    if (Math.random() < probabilityBrianPaul) {
-        return "Brian Paul";
-    } else {
-        const randomIndex = Math.floor(Math.random() * entities.length);
-        return entities[randomIndex];
-    }
-}
-
-function getRandomRenderer() {
-    const probabilityMesaOffScreen = 0.001;
-    const graphicsInfoOptions = [
-        "Intel(R) HD Graphics.",
-        "WebKit WebGL",
-        "ANGLE (Intel, Mesa Intel(R) Xe Graphics (TGL GT2), OpenGL 4.6)",
-        "Unknown",
-        "Mozilla"
-    ];
-
-    if (Math.random() < probabilityMesaOffScreen) {
-        return "Mesa offScreen";
-    } else {
-        const randomIndex = Math.floor(Math.random() * graphicsInfoOptions.length);
-        return graphicsInfoOptions[randomIndex];
-    }
-}
-
-function extractScreenInfo(inputString) {
-    const regex = /"innerHeight":(\d+),"outerHeight":(\d+),"outerWidth":(\d+),"innerWidth":(\d+)/;
-    const match = inputString.match(regex);
-
-    if (match) {
-        const [, innerHeight, outerHeight, outerWidth, innerWidth] = match.map(Number);
-        return {
-            innerHeight,
-            outerHeight,
-            outerWidth,
-            innerWidth
-        };
-    } else {
-        return {
-            innerHeight: 0,
-            outerHeight: 0,
-            outerWidth: 0,
-            innerWidth: 0
-        }; // Return null or any other value if the pattern is not found
-    }
-}
-
-
-
 async function fetchGeneratorData() {
     const response = await fetch('https://raw.githubusercontent.com/apify/fingerprint-generator/master/src/data_files/fingerprint-network-definition.json')
     const data = response.json()
     return data;
 }
 
-botPromise
+function userClicked() {
+    botPromise
     .then((bot) => {
         const data = fetchGeneratorData()
         
         data.then(data => {
-
-            bot.components.android.value = getRandomBoolean();
-            bot.components.appVersion.value = addRandomSuffixWithProbability(getRandomElementFromArray(data.nodes[4].possibleValues));
-            bot.components.browserEngineKind.value = getRandomRenderingEngine();
-            bot.components.browserKind.value = getRandomBrowser();
-            bot.components.documentFocus.value = getRandomBoolean();
-            bot.components.evalLength.value = getRandomEvalLength();
-            bot.components.languages.value = getRandomArray();
-            bot.components.mimeTypesConsistent.value = getRandomBoolean();
-            bot.components.notificationPermissions.value = getRandomBoolean();
-            bot.components.pluginsArray.value = getRandomBooleanTrue();
-            bot.components.pluginsLength.value = getRandomWeightedNumber();
-            bot.components.productSub.value = getRandomElementFromArray(data.nodes[12].possibleValues);
-            bot.components.rtt.value = bot.components.rtt.state === -1 ? -1 : Math.floor(Math.random() * 251);
-            bot.components.userAgent.value = getRandomElementFromArray(data.nodes[0].possibleValues);
-            bot.components.webDriver.value = getRandomBooleanFalse();
-            bot.components.webGL.value.vendor = getRandomVendor();
-            bot.components.webGL.value.renderer = getRandomRenderer();
-            let screenInfo = extractScreenInfo(getRandomElementFromArray(data.nodes[17].possibleValues));
-            bot.components.windowSize.value.innerHeight = screenInfo.innerHeight;
-            bot.components.windowSize.value.innerWidth = screenInfo.innerWidth;
-            bot.components.windowSize.value.outerHeight = screenInfo.outerHeight;
-            bot.components.windowSize.value.outerWidth = screenInfo.outerWidth;
 
             jsonData.android = bot.components.android.value
             jsonData.appVersion = bot.components.appVersion.value
@@ -233,6 +109,10 @@ botPromise
             jsonData.outerWidth = bot.components.windowSize.value.outerWidth;
             jsonData.bot = bot.detect().bot
 
+            updateContent();
+            document.getElementById("modelShowButton").click()
+            document.getElementById("botFeedback").style.visibility = "visible";
+
             console.log("JSON", jsonData)
             const apiEndpoint = "https://fingerprint-server-czzzoqqzqa-ey.a.run.app/api/bot-data";
 
@@ -261,3 +141,4 @@ botPromise
                 });
         })
     })
+}
