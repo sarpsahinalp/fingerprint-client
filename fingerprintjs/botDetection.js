@@ -9,7 +9,7 @@ function showPopup() {
 }
 
 function updateContent() {
-    document.getElementById("bot").innerText = jsonData.bot;
+    document.getElementById("bot").innerText = jsonData.bot ? "You are a bot" : "You are a human";
     document.getElementById("android").innerText = jsonData.android;
     document.getElementById("appVersion").innerText = jsonData.appVersion;
     document.getElementById("browserEngineKind").innerText = jsonData.browserEngineKind;
@@ -70,8 +70,28 @@ let jsonData = {
 
 async function fetchGeneratorData() {
     const response = await fetch('https://raw.githubusercontent.com/apify/fingerprint-generator/master/src/data_files/fingerprint-network-definition.json')
-    const data = response.json()
-    return data;
+    return response.json();
+}
+
+function performAction() {
+    // Get the button and loading element
+    const button = document.getElementById('actionButton');
+    const loadingElement = document.getElementById('loadingElement');
+
+    // Disable the button
+    button.disabled = true;
+
+    // Show the loading element
+    loadingElement.classList.remove('hidden');
+
+    // Simulate a time-consuming task (replace this with your actual function)
+    setTimeout(() => {
+        // Enable the button
+        button.disabled = false;
+
+        // Hide the loading element
+        loadingElement.classList.add('hidden');
+    }, 2000); // Replace 2000 with the time your function takes in milliseconds
 }
 
 function userClicked() {

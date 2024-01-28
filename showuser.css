@@ -1,0 +1,11 @@
+.hidden {
+    display: none;
+}
+
+#loadingElement {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 10px;
+    z-index: 1;
+}
